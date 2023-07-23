@@ -1,0 +1,126 @@
+@import url('https://fonts.googleapis.com/css2?family=DotGothic16&display=swap');
+
+* {
+    background-color: #f5f5dc;
+    padding: 0;
+    margin: 0;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+body {
+    display: flex;
+    justify-content: center;
+    height: auto;
+    overflow: auto;
+}
+
+.sidebar {
+    padding-left: 10px;
+
+    height: 100%;
+    background: transparent;
+    border-right: 1px solid #0E0E0E;
+}
+::-webkit-scrollbar{
+    display: none;
+}
+
+.content {
+    height: 99vh;
+    overflow-y: scroll;
+}
+
+.sidebar > a {
+    font-weight: 100;
+    font-size: 20px;
+}
+
+.navbar {
+    margin-top: 400px;
+    display: flex;
+    flex-direction: column;
+}
+
+.navbar > a {
+    letter-spacing: 1px;
+    font-weight: 100;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+
+.body__row {
+    width: 1500px;
+    border: 1px solid #0E0E0E;
+    display: flex;
+    justify-content: center;
+}
+
+.content__about {
+    border-bottom: 1px solid #0E0E0E;
+}
+
+.about__first {
+    margin-top: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-bottom: 1px solid #0E0E0E;
+}
+
+.about__first > h1 {
+    line-height: 50px;
+}
+
+.self__description {
+    text-align: center;
+
+}
+
+.self__description > p {
+    opacity: 1;
+    color: #141414;
+    font-family: 'DotGothic16', sans-serif;
+    transition: 0.3s ease-in-out;
+}
+
+.self__img > img {
+    width: 100%;
+}
+
+.content__contact {
+
+    border-bottom: 1px solid #0E0E0E;
+}
+
+.contact__first {
+    padding: 20px;
+}
+
+.contact__first > h1 {
+    font-size: 50px;
+    font-weight: 900;
+}
+
+.contact__second {
+    margin-left: 10%;
+}
+
+.contact__third {
+    margin-top: 70px;
+    margin-bottom: 50px;
+    margin-left: 10%;
+}
+
+.contact__third > b {
+    font-size: xx-large;
+    font-family:Georgia, 'Times New Roman', Times, serif;
+}
+
+.contact__third > p {
+    font-size: x-large;
+    font-family: monospace;
+}
+.content__rights {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
