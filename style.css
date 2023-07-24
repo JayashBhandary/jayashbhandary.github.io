@@ -78,7 +78,6 @@ body {
 .self__description > p {
     opacity: 1;
     color: #141414;
-    font-family: 'DotGothic16', sans-serif;
     transition: 0.3s ease-in-out;
 }
 
