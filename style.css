@@ -1,125 +1,468 @@
-@import url('https://fonts.googleapis.com/css2?family=DotGothic16&display=swap');
+:root {
+    --primary-color: #0a84ff;
+    --secondary-color: #2997ff;
+    --text-color: #ffffff;
+    --light-text: #a1a1a6;
+    --background: #000000;
+    --section-bg: #1c1c1e;
+    --card-bg: #2c2c2e;
+    --gradient-1: linear-gradient(135deg, #0a84ff 0%, #42a1ec 100%);
+    --gradient-2: linear-gradient(135deg, #42a1ec 0%, #2997ff 100%);
+    --gradient-3: linear-gradient(135deg, #2997ff 0%, #0a84ff 100%);
+}
 
 * {
-    background-color: #f5f5dc;
-    padding: 0;
     margin: 0;
-    font-family: Arial, Helvetica, sans-serif;
+    padding: 0;
+    box-sizing: border-box;
 }
 
 body {
-    display: flex;
-    justify-content: center;
-    height: auto;
-    overflow: auto;
+    font-family: 'SF Pro Display', -apple-system, BlinkMacSystemFont, sans-serif;
+    line-height: 1.6;
+    color: var(--text-color);
+    background-color: var(--background);
+    overflow-x: hidden;
 }
 
-.sidebar {
-    padding-left: 10px;
-
-    height: 100%;
-    background: transparent;
-    border-right: 1px solid #0E0E0E;
-}
-::-webkit-scrollbar{
-    display: none;
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 2rem;
 }
 
-.content {
-    height: 99vh;
-    overflow-y: scroll;
-}
-
-.sidebar > a {
-    font-weight: 100;
-    font-size: 20px;
-}
-
+/* Navbar Styles */
 .navbar {
-    margin-top: 400px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0.95);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    z-index: 1000;
+    transition: all 0.3s ease;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 0.5rem 0;
+}
+
+.navbar.scroll-down {
+    transform: translateY(-100%);
+}
+
+.navbar.scroll-up {
+    transform: translateY(0);
+}
+
+.navbar .container {
     display: flex;
-    flex-direction: column;
-}
-
-.navbar > a {
-    letter-spacing: 1px;
-    font-weight: 100;
-    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-}
-
-.body__row {
-    width: 1500px;
-    border: 1px solid #0E0E0E;
-    display: flex;
-    justify-content: center;
-}
-
-.content__about {
-    border-bottom: 1px solid #0E0E0E;
-}
-
-.about__first {
-    margin-top: 10px;
-    display: flex;
-    justify-content: center;
+    justify-content: space-between;
     align-items: center;
-    border-bottom: 1px solid #0E0E0E;
+    padding: 0 2rem;
 }
 
-.about__first > h1 {
-    line-height: 50px;
+.logo {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--primary-color);
+    text-decoration: none;
+    letter-spacing: -0.5px;
 }
 
-.self__description {
-    text-align: center;
-
+.nav-links {
+    display: flex;
+    list-style: none;
+    gap: 2.5rem;
 }
 
-.self__description > p {
-    opacity: 1;
-    color: #141414;
-    transition: 0.3s ease-in-out;
+.nav-links a {
+    text-decoration: none;
+    color: var(--text-color);
+    font-weight: 500;
+    font-size: 0.9rem;
+    transition: color 0.3s ease;
+    position: relative;
 }
 
-.self__img > img {
+.nav-links a::after {
+    content: '';
+    position: absolute;
+    bottom: -4px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background-color: var(--primary-color);
+    transition: width 0.3s ease;
+}
+
+.nav-links a:hover::after {
     width: 100%;
 }
 
-.content__contact {
-
-    border-bottom: 1px solid #0E0E0E;
+/* Hero Section */
+.hero {
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+    background-color: var(--background);
+    padding-top: 80px; /* Add padding to account for fixed navbar */
 }
 
-.contact__first {
-    padding: 20px;
+.hero-content {
+    text-align: center;
+    z-index: 2;
+    opacity: 1;
+    transform: translateY(0);
 }
 
-.contact__first > h1 {
-    font-size: 50px;
-    font-weight: 900;
+.hero-title {
+    font-size: 4.5rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+    background: var(--gradient-1);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    letter-spacing: -1px;
 }
 
-.contact__second {
-    margin-left: 10%;
+.hero-subtitle {
+    font-size: 2.5rem;
+    color: var(--text-color);
+    margin-bottom: 1rem;
+    font-weight: 500;
 }
 
-.contact__third {
-    margin-top: 70px;
-    margin-bottom: 50px;
-    margin-left: 10%;
+.hero-location {
+    font-size: 1.2rem;
+    color: var(--light-text);
+    margin-bottom: 3rem;
 }
 
-.contact__third > b {
-    font-size: xx-large;
-    font-family:Georgia, 'Times New Roman', Times, serif;
+.hero-scroll-indicator {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    color: var(--light-text);
+    font-size: 0.9rem;
 }
 
-.contact__third > p {
-    font-size: x-large;
-    font-family: monospace;
+.scroll-arrow {
+    width: 20px;
+    height: 20px;
+    border-right: 2px solid var(--light-text);
+    border-bottom: 2px solid var(--light-text);
+    transform: rotate(45deg);
+    animation: bounce 2s infinite;
 }
-.content__rights {
+
+@keyframes bounce {
+    0%, 20%, 50%, 80%, 100% {
+        transform: translateY(0) rotate(45deg);
+    }
+    40% {
+        transform: translateY(-10px) rotate(45deg);
+    }
+    60% {
+        transform: translateY(-5px) rotate(45deg);
+    }
+}
+
+.hero-background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+
+.gradient-circle {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(60px);
+    opacity: 0.6;
+}
+
+.gradient-circle:nth-child(1) {
+    width: 600px;
+    height: 600px;
+    background: var(--gradient-1);
+    top: -200px;
+    right: -100px;
+}
+
+.gradient-circle:nth-child(2) {
+    width: 400px;
+    height: 400px;
+    background: var(--gradient-2);
+    bottom: -100px;
+    left: -50px;
+}
+
+.gradient-circle:nth-child(3) {
+    width: 300px;
+    height: 300px;
+    background: var(--gradient-3);
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+/* Section Styles */
+.section-header {
+    text-align: center;
+    margin-bottom: 4rem;
+}
+
+.section-header h2 {
+    font-size: 3rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+    letter-spacing: -0.5px;
+    color: var(--text-color);
+}
+
+.section-line {
+    width: 50px;
+    height: 2px;
+    background: var(--gradient-1);
+    margin: 0 auto;
+}
+
+/* About Section */
+.about {
+    padding: 8rem 0;
+    background-color: var(--background);
+}
+
+.about-content {
+    max-width: 800px;
+    margin: 0 auto;
+    text-align: center;
+    font-size: 1.2rem;
+    color: var(--light-text);
+    line-height: 1.8;
+}
+
+/* Skills Section */
+.skills {
+    padding: 8rem 0;
+    background-color: var(--section-bg);
+}
+
+.skills-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 2rem;
+}
+
+.skill-category {
+    background-color: var(--card-bg);
+    padding: 2.5rem;
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s ease;
+    opacity: 1;
+    transform: translateY(0);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.skill-category:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+    border-color: var(--primary-color);
+}
+
+.skill-icon {
+    font-size: 2.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.skill-category h3 {
+    font-size: 1.5rem;
+    margin-bottom: 1.5rem;
+    color: var(--text-color);
+}
+
+.skill-category ul {
+    list-style: none;
+}
+
+.skill-category li {
+    margin-bottom: 0.8rem;
+    color: var(--light-text);
+    position: relative;
+    padding-left: 1.5rem;
+}
+
+.skill-category li::before {
+    content: '•';
+    position: absolute;
+    left: 0;
+    color: var(--primary-color);
+}
+
+/* Add this to ensure smooth transitions */
+.skill-category.animate {
+    opacity: 0;
+    transform: translateY(30px);
+}
+
+/* Add this to ensure smooth transitions for hero content */
+.hero-content.animate {
+    opacity: 0;
+    transform: translateY(50px);
+}
+
+/* Contact Section */
+.contact {
+    padding: 8rem 0;
+    text-align: center;
+    background-color: var(--background);
+}
+
+.contact p {
+    max-width: 600px;
+    margin: 0 auto 3rem;
+    color: var(--light-text);
+    font-size: 1.2rem;
+}
+
+.social-links {
     display: flex;
     justify-content: center;
-    align-items: center;
+    gap: 2rem;
+    margin-top: 2rem;
 }
+
+.social-link {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background-color: var(--card-bg);
+    color: var(--primary-color);
+    font-size: 1.8rem;
+    transition: all 0.3s ease;
+    text-decoration: none;
+    position: relative;
+    overflow: hidden;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.social-link::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: var(--gradient-1);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    z-index: 1;
+}
+
+.social-link i {
+    position: relative;
+    z-index: 2;
+    transition: transform 0.3s ease;
+}
+
+.social-link:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(10, 132, 255, 0.2);
+    border-color: var(--primary-color);
+}
+
+.social-link:hover::before {
+    opacity: 1;
+}
+
+.social-link:hover i {
+    color: white;
+    transform: scale(1.1);
+}
+
+/* Add specific colors for each social platform */
+.social-link[title="LinkedIn"] {
+    color: #0077b5;
+}
+
+.social-link[title="Instagram"] {
+    color: #e4405f;
+}
+
+.social-link[title="X (Twitter)"] {
+    color: #000000;
+}
+
+.social-link[title="YouTube"] {
+    color: #ff0000;
+}
+
+/* Add hover tooltip */
+.social-link::after {
+    content: attr(title);
+    position: absolute;
+    bottom: -30px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: var(--text-color);
+    color: white;
+    padding: 5px 10px;
+    border-radius: 4px;
+    font-size: 0.8rem;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+    white-space: nowrap;
+}
+
+.social-link:hover::after {
+    opacity: 1;
+    visibility: visible;
+    bottom: -40px;
+}
+
+/* Footer */
+footer {
+    background-color: var(--section-bg);
+    padding: 2rem 0;
+    text-align: center;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+footer p {
+    color: var(--light-text);
+    font-size: 0.9rem;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .hero-title {
+        font-size: 3rem;
+    }
+    
+    .hero-subtitle {
+        font-size: 1.8rem;
+    }
+    
+    .section-header h2 {
+        font-size: 2.5rem;
+    }
+    
+    .skills-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .nav-links {
+        display: none;
+    }
+} 
