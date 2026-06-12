@@ -1,0 +1,18 @@
+[
+  {
+    "repo": "https://github.com/JayashBhandary/Notilus",
+    "tags": "Flutter, Dart, Ollama, Local-first",
+    "cover": "assets/img/notilus.png"
+  },
+  {
+    "repo": "https://github.com/JayashBhandary/Lotus",
+    "tags": "Ollama, LLM, MCP, Telegram",
+    "cover": "assets/img/lotus.png"
+  },
+  {
+    "repo": "https://github.com/JayashBhandary/Dextr",
+    "tags": "SQLite, PostgreSQL, MongoDB, S3",
+    "cover": "assets/img/dextr.png"
+  }
+
+]

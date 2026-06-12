@@ -28,16 +28,30 @@
         return file === '' ? 'index.html' : file;
     }
 
+    // Relative prefix back to the site root, based on how many directories
+    // deep the current page lives (root → '', pages/ → '../', etc.).
+    function rootPrefix() {
+        const dir = window.location.pathname.replace(/[^/]*$/, '');
+        const depth = dir.split('/').filter(Boolean).length;
+        return '../'.repeat(depth);
+    }
+
+    // index.html sits at the site root; every other page lives in pages/.
+    function resolveHref(file) {
+        const prefix = rootPrefix();
+        return file === 'index.html' ? prefix + 'index.html' : prefix + 'pages/' + file;
+    }
+
     function buildNav() {
         const current = currentPage();
         const links = NAV_LINKS.map(l => {
             const active = l.href === current;
-            return `<li><a href="${l.href}"${active ? ' class="is-active" aria-current="page"' : ''}>${l.label}</a></li>`;
+            return `<li><a href="${resolveHref(l.href)}"${active ? ' class="is-active" aria-current="page"' : ''}>${l.label}</a></li>`;
         }).join('');
         return `
         <nav class="navbar">
             <div class="container nav-inner">
-                <a href="index.html" class="logo">Jayash Bhandary</a>
+                <a href="${resolveHref('index.html')}" class="logo">Jayash Bhandary</a>
                 <ul class="nav-links">${links}</ul>
                 <a href="mailto:${EMAIL}" class="nav-cta">Get in touch</a>
                 <button class="hamburger" aria-label="Toggle menu" aria-expanded="false">

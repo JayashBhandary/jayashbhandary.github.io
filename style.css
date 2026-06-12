@@ -685,3 +685,89 @@ a {
     .rs-cols { grid-template-columns: 1fr; gap: 16px; }
     .rs-meta { white-space: normal; }
 }
+
+/* ---- Generated project pages (build-projects.js) ---- */
+.project-meta {
+    margin-top: 14px;
+    color: var(--text-faint);
+    font-size: 0.92rem;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px 0;
+}
+.project-meta i { color: var(--text-soft); margin-right: 4px; }
+
+.project-prose {
+    max-width: 720px;
+    color: var(--text);
+    font-size: 1.05rem;
+    line-height: 1.75;
+}
+.project-prose > * + * { margin-top: 1.1em; }
+.project-prose h2 {
+    font-family: var(--font-display);
+    font-size: 1.6rem;
+    margin-top: 1.8em;
+    line-height: 1.25;
+}
+.project-prose h3 {
+    font-family: var(--font-display);
+    font-size: 1.25rem;
+    margin-top: 1.6em;
+}
+.project-prose h4 { font-size: 1.05rem; margin-top: 1.4em; }
+.project-prose a { color: var(--accent); text-decoration: none; border-bottom: 1px solid var(--accent-soft); }
+.project-prose a:hover { border-bottom-color: var(--accent); }
+.project-prose ul,
+.project-prose ol { padding-left: 1.4em; }
+.project-prose li + li { margin-top: 0.4em; }
+.project-prose img { max-width: 100%; height: auto; border-radius: var(--radius); }
+.project-prose code {
+    background: var(--accent-soft);
+    color: var(--text);
+    padding: 0.15em 0.4em;
+    border-radius: 6px;
+    font-size: 0.9em;
+}
+.project-prose pre {
+    background: #15171a;
+    color: #f3f3ef;
+    padding: 18px 20px;
+    border-radius: var(--radius);
+    overflow-x: auto;
+    font-size: 0.9rem;
+    line-height: 1.6;
+}
+.project-prose pre code { background: none; color: inherit; padding: 0; }
+.project-prose blockquote {
+    border-left: 3px solid var(--accent);
+    padding-left: 18px;
+    color: var(--text-soft);
+    font-style: italic;
+}
+.project-prose hr { border: none; border-top: 1px solid var(--border); margin: 2em 0; }
+.project-prose table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.95rem;
+    display: block;
+    overflow-x: auto;
+}
+.project-prose th,
+.project-prose td {
+    border: 1px solid var(--border);
+    padding: 8px 12px;
+    text-align: left;
+    vertical-align: top;
+}
+.project-prose thead th { background: var(--accent-soft); font-weight: 600; }
+.project-prose tbody tr:nth-child(even) { background: var(--bg); }
+
+/* ---- GitHub README viewer (github-markdown-css scopes to .markdown-body) ---- */
+.markdown-body {
+    max-width: 820px;
+    margin: 0 auto;
+    box-sizing: border-box;
+}
+.markdown-body img { background: transparent; }
+.readme-status { color: var(--text-faint); }

@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <title>Dextr — Jayash Bhandary</title>
+
+    <meta name="description" content="Dextr — a project by Jayash Bhandary.">
+    <meta name="author" content="Jayash Bhandary">
+    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1">
+    <meta name="theme-color" content="#ffffff">
+    <meta name="color-scheme" content="light">
+
+    <link rel="canonical" href="https://jayashbhandary.github.io/projects/dextr.html">
+
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://jayashbhandary.github.io/projects/dextr.html">
+    <meta property="og:site_name" content="Jayash Bhandary">
+    <meta property="og:title" content="Dextr — Jayash Bhandary">
+    <meta property="og:description" content="Dextr — a project by Jayash Bhandary.">
+    <meta property="og:image" content="https://raw.githubusercontent.com/JayashBhandary/jayashbhandary.github.io/master/image.jpeg">
+    <meta property="og:locale" content="en_US">
+
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Dextr — Jayash Bhandary">
+    <meta name="twitter:site" content="@JayashBhandary">
+
+    <link rel="icon" type="image/x-icon" href="../favicon.ico">
+    <link rel="apple-touch-icon" href="../favicon.ico">
+
+    <link rel="stylesheet" href="../style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <!-- GitHub-style Markdown rendering -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@5/github-markdown-light.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github.min.css">
+</head>
+<body>
+    <div data-component="nav"></div>
+
+    <main>
+        <header class="hero page-hero">
+            <div class="container">
+                <p class="hero-eyebrow"><a href="../pages/projects.html" class="breadcrumb"><i class="fas fa-arrow-left"></i> Projects</a></p>
+                <h1 class="hero-title">Dextr</h1>
+                <p class="hero-subtitle" id="project-lead"></p>
+                <p class="project-meta"><span><i class="fas fa-tag"></i> SQLite, PostgreSQL, MongoDB, S3</span></p>
+                <div class="hero-actions"><a href="https://github.com/JayashBhandary/Dextr" class="btn btn-ghost" target="_blank" rel="noopener"><i class="fab fa-github"></i> View on GitHub</a></div>
+            </div>
+        </header>
+
+        <section class="section">
+            <div class="container">
+                <figure class="media-figure"><img src="../assets/img/dextr.png" alt="Dextr" loading="lazy"></figure>
+                <article class="markdown-body" id="readme"><p class="readme-status">Loading README…</p></article>
+            </div>
+        </section>
+    </main>
+
+    <div data-component="footer"></div>
+
+    <script src="../components.js"></script>
+    <script src="../script.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/marked@12/marked.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script>
+    (function () {
+        var cfg = {"owner":"JayashBhandary","name":"Dextr","branches":["main","master"],"title":"Dextr"};
+        var el = document.getElementById('readme');
+        var files = ['README.md', 'readme.md', 'Readme.md', 'README.markdown'];
+
+        function rawBase(branch) {
+            return 'https://raw.githubusercontent.com/' + cfg.owner + '/' + cfg.name + '/' + branch + '/';
+        }
+        function blobBase(branch) {
+            return 'https://github.com/' + cfg.owner + '/' + cfg.name + '/blob/' + branch + '/';
+        }
+        function isAbsolute(u) { return /^(https?:|mailto:|tel:|data:|#|\/\/)/.test(u); }
+
+        function render(md, branch) {
+            marked.setOptions({ gfm: true, breaks: false });
+            el.innerHTML = marked.parse(md);
+
+            // Rewrite README-relative paths to GitHub.
+            el.querySelectorAll('img[src]').forEach(function (img) {
+                var s = img.getAttribute('src');
+                if (s && !isAbsolute(s)) img.setAttribute('src', rawBase(branch) + s.replace(/^\.?\//, ''));
+            });
+            el.querySelectorAll('a[href]').forEach(function (a) {
+                var h = a.getAttribute('href');
+                if (h && !isAbsolute(h)) a.setAttribute('href', blobBase(branch) + h.replace(/^\.?\//, ''));
+                if (a.hostname && a.hostname !== location.hostname) { a.target = '_blank'; a.rel = 'noopener'; }
+            });
+
+            // Syntax highlight + drop a duplicate leading title (the hero shows it).
+            if (window.hljs) el.querySelectorAll('pre code').forEach(function (b) { hljs.highlightElement(b); });
+            var h1 = el.querySelector('h1');
+            if (h1 && h1.textContent.trim().toLowerCase() === cfg.title.toLowerCase()) h1.remove();
+
+            // Fill the hero subtitle from the first paragraph if none was given.
+            var lead = document.getElementById('project-lead');
+            if (lead && !lead.textContent.trim()) {
+                var p = el.querySelector('p');
+                if (p) lead.textContent = p.textContent.trim().slice(0, 200);
+            }
+        }
+
+        function attempt(bi, fi) {
+            if (bi >= cfg.branches.length) {
+                el.innerHTML = '<p class="readme-status">Couldn\'t load the README. ' +
+                    '<a href="https://github.com/' + cfg.owner + '/' + cfg.name + '" target="_blank" rel="noopener">View it on GitHub</a>.</p>';
+                return;
+            }
+            if (fi >= files.length) return attempt(bi + 1, 0);
+            var branch = cfg.branches[bi];
+            fetch(rawBase(branch) + files[fi])
+                .then(function (r) { if (!r.ok) throw new Error(r.status); return r.text(); })
+                .then(function (md) { render(md, branch); })
+                .catch(function () { attempt(bi, fi + 1); });
+        }
+        attempt(0, 0);
+    })();
+    </script>
+</body>
+</html>
