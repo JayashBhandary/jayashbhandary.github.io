@@ -145,26 +145,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" xintegrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 <body>
-    <nav class="navbar">
-        <div class="container nav-inner">
-            <a href="#" class="logo">Jayash Bhandary</a>
-            <ul class="nav-links">
-                <li><a href="#about">About</a></li>
-                <li><a href="#experience">Work</a></li>
-                <li><a href="#projects">Projects</a></li>
-                <li><a href="#skills">Skills</a></li>
-                <li><a href="#education">Education</a></li>
-                <li><a href="#certifications">Certs</a></li>
-                <li><a href="resume.html">Resume</a></li>
-            </ul>
-            <a href="mailto:findjayash@gmail.com" class="nav-cta">Get in touch</a>
-            <button class="hamburger" aria-label="Toggle menu">
-                <span></span>
-                <span></span>
-                <span></span>
-            </button>
-        </div>
-    </nav>
+    <div data-component="nav"></div>
 
     <main>
         <!-- HERO -->
@@ -192,6 +173,7 @@
                 <div class="section-head">
                     <span class="section-index">01</span>
                     <h2 class="section-title">About</h2>
+                    <a href="about.html" class="section-more">More <i class="fas fa-arrow-right"></i></a>
                 </div>
                 <div class="about-grid">
                     <div class="about-text">
@@ -227,6 +209,7 @@
                 <div class="section-head">
                     <span class="section-index">02</span>
                     <h2 class="section-title">Work Experience</h2>
+                    <a href="work.html" class="section-more">More <i class="fas fa-arrow-right"></i></a>
                 </div>
                 <ol class="timeline">
                     <li class="timeline-item">
@@ -281,6 +264,7 @@
                 <div class="section-head">
                     <span class="section-index">03</span>
                     <h2 class="section-title">Featured Project</h2>
+                    <a href="projects.html" class="section-more">All projects <i class="fas fa-arrow-right"></i></a>
                 </div>
                 <a href="https://www.2went6ex.com" target="_blank" class="project-card">
                     <div class="project-top">
@@ -304,6 +288,7 @@
                 <div class="section-head">
                     <span class="section-index">04</span>
                     <h2 class="section-title">Skills</h2>
+                    <a href="credentials.html" class="section-more">More <i class="fas fa-arrow-right"></i></a>
                 </div>
                 <div class="skills-grid">
                     <div class="skill-group">
@@ -364,6 +349,7 @@
                 <div class="section-head">
                     <span class="section-index">05</span>
                     <h2 class="section-title">Education</h2>
+                    <a href="credentials.html" class="section-more">More <i class="fas fa-arrow-right"></i></a>
                 </div>
                 <ol class="timeline">
                     <li class="timeline-item">
@@ -403,6 +389,7 @@
                 <div class="section-head">
                     <span class="section-index">06</span>
                     <h2 class="section-title">Certifications</h2>
+                    <a href="credentials.html" class="section-more">More <i class="fas fa-arrow-right"></i></a>
                 </div>
                 <ul class="cert-list">
                     <li><i class="fas fa-wand-magic-sparkles"></i> Explore Generative AI with the Vertex AI Gemini API</li>
@@ -429,17 +416,9 @@
         </section>
     </main>
 
-    <footer class="footer">
-        <div class="container footer-inner">
-            <p class="footer-text">© <span id="year">2026</span> Jayash Bhandary</p>
-            <div class="social-links">
-                <a href="https://www.linkedin.com/in/jayashbhandary" target="_blank" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
-                <a href="https://github.com/JayashBhandary" target="_blank" aria-label="GitHub"><i class="fab fa-github"></i></a>
-                <a href="https://x.com/JayashBhandary" target="_blank" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
-            </div>
-        </div>
-    </footer>
+    <div data-component="footer"></div>
 
+    <script src="components.js"></script>
     <script src="script.js"></script>
 </body>
 </html>

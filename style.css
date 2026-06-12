@@ -86,6 +86,7 @@ a {
     font-weight: 500;
 }
 .nav-links a:hover { color: var(--text); }
+.nav-links a.is-active { color: var(--text); font-weight: 600; }
 
 .nav-cta {
     font-size: 0.85rem;
@@ -300,6 +301,66 @@ a {
     font-size: clamp(1.5rem, 3.5vw, 2rem);
     letter-spacing: -0.02em;
     color: var(--text);
+}
+.section-more {
+    margin-left: auto;
+    align-self: center;
+    font-size: 0.88rem;
+    font-weight: 600;
+    color: var(--text-soft);
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    transition: all 0.2s var(--ease);
+}
+.section-more:hover { color: var(--accent); }
+.section-more:hover i { transform: translateX(3px); }
+.section-more i { font-size: 0.78em; transition: transform 0.2s var(--ease); }
+
+/* --- Detail pages (about / work / projects / credentials) --- */
+.page-hero { padding: 150px 0 50px; }
+.page-hero .hero-title { margin-bottom: 18px; }
+.breadcrumb {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--text-soft);
+    font-weight: 500;
+    font-size: 0.92rem;
+}
+.breadcrumb:hover { color: var(--accent); }
+
+/* Media (images / video / gifs converted to video) */
+.media-figure {
+    margin: 0 0 22px;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    overflow: hidden;
+    background: var(--surface);
+}
+.media-figure img,
+.media-figure video {
+    display: block;
+    width: 100%;
+    height: auto;
+}
+.media-figure figcaption {
+    padding: 10px 16px;
+    font-size: 0.85rem;
+    color: var(--text-faint);
+    border-top: 1px solid var(--border);
+}
+.media-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 16px;
+}
+
+/* Project grid (projects listing page) */
+.projects-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
 }
 
 /* --- About --- */
