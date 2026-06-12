@@ -180,6 +180,103 @@ a {
 }
 .hero-links a:hover { color: var(--accent); }
 
+/* --- Resume page --- */
+.resume-hero { padding: 150px 0 50px; }
+.resume-hero .hero-title { margin-bottom: 18px; }
+.back-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--text-soft);
+    font-weight: 500;
+}
+.back-link:hover { color: var(--accent); }
+.resume-viewer-section { padding-top: 0; border-top: none; }
+
+/* One-page rendered resume sheet */
+.resume-sheet {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    box-shadow: 0 18px 50px -30px rgba(21, 23, 26, 0.4);
+    padding: 44px 50px;
+    font-size: 0.9rem;
+    line-height: 1.5;
+    color: var(--text-soft);
+}
+.rs-head {
+    text-align: center;
+    padding-bottom: 16px;
+    margin-bottom: 6px;
+    border-bottom: 2px solid var(--text);
+}
+.rs-name {
+    font-family: var(--font-display);
+    font-size: 1.9rem;
+    letter-spacing: -0.02em;
+    color: var(--text);
+    line-height: 1.1;
+}
+.rs-role { color: var(--text-soft); font-weight: 500; margin-top: 2px; }
+.rs-contact { font-size: 0.82rem; color: var(--text-faint); margin-top: 8px; }
+.rs-contact a { color: var(--accent); }
+
+.rs-block { margin-top: 16px; }
+.rs-heading {
+    font-family: var(--font-display);
+    font-size: 0.82rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--accent);
+    padding-bottom: 4px;
+    margin-bottom: 8px;
+    border-bottom: 1px solid var(--border);
+}
+.rs-summary { font-size: 0.88rem; }
+
+.rs-entry { margin-bottom: 11px; }
+.rs-entry:last-child { margin-bottom: 0; }
+.rs-entry-top, .rs-edu {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+.rs-title { font-weight: 600; color: var(--text); }
+.rs-meta { font-size: 0.8rem; color: var(--text-faint); white-space: nowrap; }
+.rs-sub { font-size: 0.82rem; margin-bottom: 7px; }
+.rs-edu { margin-top: 7px; }
+.rs-bullets {
+    list-style: none;
+    margin-top: 3px;
+}
+.rs-bullets li {
+    position: relative;
+    padding-left: 15px;
+    font-size: 0.85rem;
+    margin-bottom: 2px;
+}
+.rs-bullets li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 9px;
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    background: var(--accent);
+}
+
+.rs-cols {
+    display: grid;
+    grid-template-columns: 1fr 1.25fr;
+    gap: 28px;
+}
+.rs-skill { font-size: 0.84rem; margin-bottom: 4px; }
+.rs-skill strong { color: var(--text); }
+.rs-certs { font-size: 0.84rem; }
+
 /* --- Sections --- */
 .section {
     padding: 70px 0;
@@ -522,4 +619,8 @@ a {
     .timeline-item { grid-template-columns: 1fr; gap: 12px; padding: 24px 0; }
     .timeline-meta { flex-direction: row; gap: 12px; align-items: baseline; }
     .cert-list { grid-template-columns: 1fr; }
+
+    .resume-sheet { padding: 28px 22px; }
+    .rs-cols { grid-template-columns: 1fr; gap: 16px; }
+    .rs-meta { white-space: normal; }
 }

@@ -1,0 +1,125 @@
+%==============================================================
+% Jayash Bhandary — Resume (one page, mirrors the web viewer)
+% Compile with: tectonic resume.tex   (or pdflatex resume.tex)
+% Uses only standard packages (article class) — no exotic deps.
+%==============================================================
+\documentclass[a4paper,10pt]{article}
+
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[margin=1.4cm]{geometry}
+\usepackage{enumitem}
+\usepackage{titlesec}
+\usepackage{hyperref}
+\usepackage{xcolor}
+
+\definecolor{accent}{HTML}{2F5BFF}
+\definecolor{soft}{HTML}{5A6068}
+\definecolor{faint}{HTML}{9AA0A8}
+
+\hypersetup{
+    colorlinks=true,
+    urlcolor=accent,
+    linkcolor=accent,
+    pdftitle={Jayash Bhandary — Resume},
+    pdfauthor={Jayash Bhandary},
+    pdfsubject={Full-Stack \& AI Engineer},
+    pdfkeywords={Full-Stack Engineer, AI Engineer, React, Next.js, FastAPI, RAG, LLM, Python}
+}
+
+% Section headings — uppercase accent label with a rule
+\titleformat{\section}
+    {\small\bfseries\color{accent}}
+    {}{0em}{\MakeUppercase}[\vspace{1pt}{\color{faint}\titlerule}]
+\titlespacing{\section}{0pt}{8pt}{4pt}
+
+\setlist[itemize]{leftmargin=1.1em, itemsep=0pt, topsep=1pt, parsep=0pt}
+\pagestyle{empty}
+\setlength{\parindent}{0pt}
+
+% Experience entry: {role — org}{type • dates}
+\newcommand{\entry}[2]{%
+    \textbf{#1}\hfill{\small\color{faint}\textit{#2}}\par%
+}
+
+\begin{document}
+
+%---------------- Header ----------------
+\begin{center}
+    {\Huge\bfseries Jayash Bhandary}\\[3pt]
+    {\color{soft}Full-Stack \& AI Engineer \textbullet{} Bengaluru, India}\\[5pt]
+    {\small
+    \href{mailto:findjayash@gmail.com}{findjayash@gmail.com} \textbullet{}
+    \href{tel:+919136007794}{+91 91360 07794} \textbullet{}
+    \href{https://jayashbhandary.github.io}{Portfolio} \textbullet{}
+    \href{https://github.com/JayashBhandary}{GitHub} \textbullet{}
+    \href{https://www.linkedin.com/in/jayashbhandary}{LinkedIn}}
+\end{center}
+\vspace{-2pt}
+{\color{soft}\hrule height 1.2pt}
+\vspace{2pt}
+
+%---------------- Summary ----------------
+\section*{Summary}
+Computer Science graduate with hands-on experience building full-stack web applications and
+AI-driven systems. Worked on real projects involving React, Next.js, Node.js, FastAPI, and cloud
+deployments, along with LLM-based features like RAG pipelines and multi-model integrations.
+Comfortable taking features from idea to production, focused on clean, practical code that solves
+real problems.
+
+%---------------- Experience ----------------
+\section*{Work Experience}
+
+\entry{AI Engineer --- Syneca}{On-site \textbullet{} Aug 2025 -- Present}
+\begin{itemize}
+    \item Worked on SYNECA, a smart archival system for data.
+    \item Implemented multi-LLM provider and vector DB support for the SIA agent.
+    \item Built an MCP server for SYNECA so it can be accessed by any chatbot or LLM.
+\end{itemize}
+\vspace{4pt}
+
+\entry{Frontend Developer --- ZOOMBUY}{Freelance \textbullet{} Jan 2025 -- Jun 2025}
+\begin{itemize}
+    \item Developed an SEO-optimized e-commerce website using Shopify as the backend platform.
+    \item Implemented a responsive UI with performance-optimized components.
+    \item Reduced bounce rate through better UX and faster load times.
+\end{itemize}
+\vspace{4pt}
+
+\entry{Full-Stack Developer --- 2WENT6EX}{Freelance \textbullet{} Dec 2023 -- Jul 2024}
+\begin{itemize}
+    \item Built a non-contemporary fashion website from scratch using modern web technologies.
+    \item Led the complete lifecycle: planning, design, development, testing, and deployment.
+    \item Ensured high responsiveness and cross-device compatibility, improving client satisfaction.
+\end{itemize}
+
+%---------------- Two columns: Education + Skills ----------------
+\vspace{2pt}
+\noindent
+\begin{minipage}[t]{0.40\textwidth}
+    \section*{Education}
+    \textbf{B.Sc. Computer Science}\hfill{\small\color{faint}2022--2025}\\
+    {\color{soft}\small V.P.M's R. Z. Shah College, Mulund}\\[3pt]
+    \textbf{Higher Secondary (HSC)}\hfill{\small\color{faint}2020--2022}\\
+    {\color{soft}\small VPM Junior College, Mulund}\\[3pt]
+    \textbf{Secondary (SSC)}\hfill{\small\color{faint}2010--2020}\\
+    {\color{soft}\small Little Flower High School, Thane}
+\end{minipage}\hfill
+\begin{minipage}[t]{0.56\textwidth}
+    \section*{Skills}
+    \textbf{Languages:} JavaScript, TypeScript, Python, C++, C\#, Dart, SQL\\
+    \textbf{Frontend:} React.js, Next.js, Tailwind CSS, Framer Motion, Vite\\
+    \textbf{Backend:} Node.js, FastAPI, Express.js, Serverless\\
+    \textbf{AI / ML:} PyTorch, Hugging Face, OpenAI API, Gemini, LangChain, RAG\\
+    \textbf{Cloud \& DevOps:} AWS, GCP, Docker, GitHub Actions, CI/CD, Terraform\\
+    \textbf{Databases:} PostgreSQL, MongoDB, Redis, ChromaDB
+\end{minipage}
+
+%---------------- Certifications ----------------
+\section*{Certifications}
+Vertex AI Gemini API \textbullet{} GenAI Apps with Gemini \& Streamlit \textbullet{} Google Cloud Essentials
+\textbullet{} Prompt Design in Vertex AI \textbullet{} Gemini Multimodality \& Multimodal RAG \textbullet{}
+Neo4j Certified Professional \textbullet{} AI Apps with Gemini \& Imagen \textbullet{} SQL to MongoDB
+Document Model \textbullet{} MongoDB Schema Design Patterns \textbullet{} RAG Course for Beginners
+
+\end{document}
