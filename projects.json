@@ -1,18 +1,20 @@
 [
   {
-    "repo": "https://github.com/JayashBhandary/Notilus",
-    "tags": "Flutter, Dart, Ollama, Local-first",
-    "cover": "assets/img/notilus.png"
+    "repo": "https://github.com/JayashBhandary/Dextr",
+    "description": "A cross-platform desktop client for SQL, NoSQL, object storage, and HTTP APIs — browse, edit, and query every data source side by side.",
+    "tags": "SQLite, PostgreSQL, MongoDB, S3",
+    "cover": "assets/img/dextr.png"
   },
   {
     "repo": "https://github.com/JayashBhandary/Lotus",
+    "description": "A local Windows automation agent controlled via Telegram — manage apps, files, system actions, and messaging with secure, real-time commands.",
     "tags": "Ollama, LLM, MCP, Telegram",
     "cover": "assets/img/lotus.png"
   },
   {
-    "repo": "https://github.com/JayashBhandary/Dextr",
-    "tags": "SQLite, PostgreSQL, MongoDB, S3",
-    "cover": "assets/img/dextr.png"
+    "repo": "https://github.com/JayashBhandary/Notilus",
+    "description": "A Finder-style, local-first file manager built in Flutter, with a built-in Ollama chat panel, a Quick-Look-style preview viewer, and a workflow editor for prompt chains against your files.",
+    "tags": "Flutter, Dart, Ollama, Local-first",
+    "cover": "assets/img/notilus.png"
   }
-
 ]

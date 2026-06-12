@@ -66,8 +66,8 @@ function page(entry) {
         : '';
     const links = [`<a href="${repoUrl}" class="btn btn-ghost" target="_blank" rel="noopener"><i class="fab fa-github"></i> View on GitHub</a>`];
     if (entry.demo) links.unshift(`<a href="${escapeAttr(entry.demo)}" class="btn btn-primary" target="_blank" rel="noopener"><i class="fas fa-arrow-up-right-from-square"></i> Live demo</a>`);
-    const coverFig = entry.cover
-        ? `\n                <figure class="media-figure"><img src="${escapeAttr(portfolioAsset(entry.cover))}" alt="${escapeAttr(title)}" loading="lazy"></figure>`
+    const heroCover = entry.cover
+        ? `\n                    <figure class="project-hero-media"><img src="${escapeAttr(portfolioAsset(entry.cover))}" alt="${escapeAttr(title)}" loading="lazy"></figure>`
         : '';
 
     // Config the in-page viewer reads (safely embedded as JSON).
@@ -105,7 +105,7 @@ function page(entry) {
     <link rel="icon" type="image/x-icon" href="../favicon.ico">
     <link rel="apple-touch-icon" href="../favicon.ico">
 
-    <link rel="stylesheet" href="../style.css">
+    <link rel="stylesheet" href="../style.css?v=2">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
@@ -119,18 +119,39 @@ function page(entry) {
     <div data-component="nav"></div>
 
     <main>
-        <header class="hero page-hero">
+        <header class="hero page-hero project-hero${entry.cover ? ' has-cover' : ''}">
             <div class="container">
                 <p class="hero-eyebrow"><a href="../pages/projects.html" class="breadcrumb"><i class="fas fa-arrow-left"></i> Projects</a></p>
-                <h1 class="hero-title">${escapeHtml(title)}</h1>
-                <p class="hero-subtitle" id="project-lead">${escapeHtml(desc)}</p>
-                ${tagsHtml}
-                <div class="hero-actions">${links.join('')}</div>
+                <div class="project-hero-grid">${heroCover}
+                    <div class="project-hero-text">
+                        <h1 class="hero-title">${escapeHtml(title)}</h1>
+                        <p class="hero-subtitle" id="project-lead">${escapeHtml(desc)}</p>
+                        ${tagsHtml}
+                        <div class="hero-actions">${links.join('')}</div>
+                    </div>
+                </div>
             </div>
         </header>
 
+        <section class="section release-section" id="release-section" hidden>
+            <div class="container">
+                <div class="release-card" id="release-card">
+                    <div class="release-head">
+                        <div class="release-title">
+                            <span class="release-label">Latest release</span>
+                            <span class="release-tag" id="release-tag"></span>
+                            <time class="release-date" id="release-date"></time>
+                        </div>
+                        <select class="release-select" id="release-select" aria-label="Select a release"></select>
+                    </div>
+                    <div class="markdown-body release-body" id="release-body"></div>
+                    <ul class="release-assets" id="release-assets"></ul>
+                </div>
+            </div>
+        </section>
+
         <section class="section">
-            <div class="container">${coverFig}
+            <div class="container">
                 <article class="markdown-body" id="readme"><p class="readme-status">Loading README…</p></article>
             </div>
         </section>
@@ -199,6 +220,77 @@ function page(entry) {
         }
         attempt(0, 0);
     })();
+
+    // ---- GitHub releases: latest by default, selectable; graceful fallback ----
+    (function () {
+        var cfg = ${cfg};
+        var sec = document.getElementById('release-section');
+        var tagEl = document.getElementById('release-tag');
+        var dateEl = document.getElementById('release-date');
+        var selEl = document.getElementById('release-select');
+        var bodyEl = document.getElementById('release-body');
+        var assetsEl = document.getElementById('release-assets');
+        var releasesUrl = 'https://github.com/' + cfg.owner + '/' + cfg.name + '/releases';
+        var api = 'https://api.github.com/repos/' + cfg.owner + '/' + cfg.name + '/releases?per_page=30';
+
+        function fallback() {
+            sec.hidden = false;
+            sec.querySelector('.release-card').innerHTML =
+                '<p class="readme-status">Latest release info is unavailable right now. ' +
+                '<a href="' + releasesUrl + '" target="_blank" rel="noopener">View releases on GitHub</a>.</p>';
+        }
+
+        function fmtDate(s) {
+            if (!s) return '';
+            var d = new Date(s);
+            if (isNaN(d)) return '';
+            return d.toLocaleDateString(undefined, { year: 'numeric', month: 'short', day: 'numeric' });
+        }
+        function fmtSize(n) {
+            if (!n && n !== 0) return '';
+            var u = ['B', 'KB', 'MB', 'GB'], i = 0;
+            while (n >= 1024 && i < u.length - 1) { n /= 1024; i++; }
+            return (i ? n.toFixed(1) : n) + ' ' + u[i];
+        }
+
+        function show(rel) {
+            tagEl.textContent = rel.tag_name || rel.name || '';
+            dateEl.textContent = fmtDate(rel.published_at);
+            if (rel.published_at) dateEl.setAttribute('datetime', rel.published_at);
+            bodyEl.innerHTML = rel.body
+                ? marked.parse(rel.body)
+                : '<p class="readme-status">No release notes.</p>';
+            bodyEl.querySelectorAll('a[href]').forEach(function (a) {
+                if (a.hostname && a.hostname !== location.hostname) { a.target = '_blank'; a.rel = 'noopener'; }
+            });
+            if (window.hljs) bodyEl.querySelectorAll('pre code').forEach(function (b) { hljs.highlightElement(b); });
+
+            var assets = rel.assets || [];
+            assetsEl.innerHTML = assets.map(function (a) {
+                return '<li><a href="' + a.browser_download_url + '" rel="noopener">' +
+                    '<i class="fas fa-download"></i> ' + a.name +
+                    '</a><span class="asset-size">' + fmtSize(a.size) + '</span></li>';
+            }).join('');
+            assetsEl.hidden = !assets.length;
+        }
+
+        fetch(api, { headers: { 'Accept': 'application/vnd.github+json' } })
+            .then(function (r) { if (!r.ok) throw new Error(r.status); return r.json(); })
+            .then(function (list) {
+                var rels = (list || []).filter(function (r) { return !r.draft; });
+                if (!rels.length) return; // repo has no releases — leave the card hidden
+                sec.hidden = false;
+                rels.forEach(function (rel, i) {
+                    var o = document.createElement('option');
+                    o.value = String(i);
+                    o.textContent = (rel.tag_name || rel.name || 'release') + (i === 0 ? ' — latest' : '');
+                    selEl.appendChild(o);
+                });
+                selEl.addEventListener('change', function () { show(rels[+selEl.value] || rels[0]); });
+                show(rels[0]);
+            })
+            .catch(fallback);
+    })();
     </script>
 </body>
 </html>
@@ -246,6 +338,48 @@ function injectGrid(entries) {
     console.log(`✓ updated pages/projects.html grid (${entries.length} card${entries.length === 1 ? '' : 's'})`);
 }
 
+// ------------------------------------------------ index.html compact grid
+const HOME = path.join(ROOT, 'index.html');
+const HOME_START = '<!-- generated:home-projects:start';
+const HOME_END = '<!-- generated:home-projects:end -->';
+// Home page lives at the repo root, so asset/page paths are root-relative (no ../).
+const homeAsset = p => (/^https?:/.test(p) ? p : p.replace(/^\.?\//, ''));
+
+// One compact card for the home Projects grid.
+function compactCard(entry) {
+    const { name } = parseRepo(entry.repo || entry.link || entry.url);
+    const slug = (entry.slug || name).toLowerCase();
+    const title = entry.title || entry.name || name;
+    const desc = entry.description || '';
+    const cover = entry.cover
+        ? `<figure class="project-compact-cover"><img src="${escapeAttr(homeAsset(entry.cover))}" alt="${escapeAttr(title)}" loading="lazy"></figure>`
+        : `<span class="project-compact-cover project-compact-cover--mono" aria-hidden="true">${escapeHtml(title.slice(0, 2).toUpperCase())}</span>`;
+    return `                    <a href="projects/${slug}.html" class="project-compact">
+                        ${cover}
+                        <div class="project-compact-body">
+                            <div class="project-compact-top">
+                                <h3>${escapeHtml(title)}</h3>
+                                <i class="fas fa-arrow-right project-compact-arrow"></i>
+                            </div>
+                            <p>${escapeHtml(desc)}</p>
+                        </div>
+                    </a>`;
+}
+
+// Rewrite the generated compact-card block in index.html; static cards after
+// the end marker (e.g. 2WENT6EX) are left untouched at the end of the grid.
+function injectHomeGrid(entries) {
+    if (!fs.existsSync(HOME)) { console.warn(`(skipped home grid: ${HOME} not found)`); return; }
+    const html = fs.readFileSync(HOME, 'utf8');
+    const s = html.indexOf(HOME_START), e = html.indexOf(HOME_END);
+    if (s === -1 || e === -1) { console.warn('(skipped home grid: markers not found in index.html)'); return; }
+    const startEnd = html.indexOf('-->', s) + 3;          // keep the start marker line
+    const cards = entries.map(compactCard).join('\n\n');
+    const next = html.slice(0, startEnd) + '\n' + cards + '\n\n                    ' + html.slice(e);
+    fs.writeFileSync(HOME, next);
+    console.log(`✓ updated index.html projects grid (${entries.length} card${entries.length === 1 ? '' : 's'})`);
+}
+
 // ----------------------------------------------------------------------- run
 function main() {
     if (!fs.existsSync(MANIFEST)) {
@@ -289,6 +423,7 @@ function main() {
         }
     }
     injectGrid(allEntries);
+    injectHomeGrid(allEntries);
     console.log(`\nDone — ${ok}/${entries.length} page(s) generated.`);
 }
 

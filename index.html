@@ -138,7 +138,7 @@
     </script>
 
     <!-- Stylesheets -->
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style.css?v=4">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
@@ -263,22 +263,56 @@
             <div class="container">
                 <div class="section-head">
                     <span class="section-index">03</span>
-                    <h2 class="section-title">Featured Project</h2>
+                    <h2 class="section-title">Projects</h2>
                     <a href="pages/projects.html" class="section-more">All projects <i class="fas fa-arrow-right"></i></a>
                 </div>
-                <a href="https://www.2went6ex.com" target="_blank" class="project-card">
-                    <div class="project-top">
-                        <h3>2WENT6EX</h3>
-                        <span class="project-arrow"><i class="fas fa-arrow-up-right-from-square"></i></span>
-                    </div>
-                    <p class="project-desc">A non-contemporary fashion e-commerce site built from scratch with modern web technologies. I led the complete lifecycle — planning, design, development, testing, and deployment — ensuring high responsiveness and cross-device compatibility.</p>
-                    <ul class="tag-list">
-                        <li>Full-Stack</li>
-                        <li>E-commerce</li>
-                        <li>UI/UX</li>
-                        <li>Responsive</li>
-                    </ul>
-                </a>
+                <div class="projects-compact">
+                    <!-- generated:home-projects:start — cards below are written from projects.json by build-projects.js; do not edit by hand -->
+                    <a href="projects/dextr.html" class="project-compact">
+                        <figure class="project-compact-cover"><img src="assets/img/dextr.png" alt="Dextr" loading="lazy"></figure>
+                        <div class="project-compact-body">
+                            <div class="project-compact-top">
+                                <h3>Dextr</h3>
+                                <i class="fas fa-arrow-right project-compact-arrow"></i>
+                            </div>
+                            <p>A cross-platform desktop client for SQL, NoSQL, object storage, and HTTP APIs — browse, edit, and query every data source side by side.</p>
+                        </div>
+                    </a>
+
+                    <a href="projects/lotus.html" class="project-compact">
+                        <figure class="project-compact-cover"><img src="assets/img/lotus.png" alt="Lotus" loading="lazy"></figure>
+                        <div class="project-compact-body">
+                            <div class="project-compact-top">
+                                <h3>Lotus</h3>
+                                <i class="fas fa-arrow-right project-compact-arrow"></i>
+                            </div>
+                            <p>A local Windows automation agent controlled via Telegram — manage apps, files, system actions, and messaging with secure, real-time commands.</p>
+                        </div>
+                    </a>
+
+                    <a href="projects/notilus.html" class="project-compact">
+                        <figure class="project-compact-cover"><img src="assets/img/notilus.png" alt="Notilus" loading="lazy"></figure>
+                        <div class="project-compact-body">
+                            <div class="project-compact-top">
+                                <h3>Notilus</h3>
+                                <i class="fas fa-arrow-right project-compact-arrow"></i>
+                            </div>
+                            <p>A Finder-style, local-first file manager built in Flutter, with a built-in Ollama chat panel, a Quick-Look-style preview viewer, and a workflow editor for prompt chains against your files.</p>
+                        </div>
+                    </a>
+
+                    <!-- generated:home-projects:end -->
+                    <a href="https://www.2went6ex.com" target="_blank" rel="noopener" class="project-compact">
+                        <span class="project-compact-cover project-compact-cover--mono" aria-hidden="true">2X</span>
+                        <div class="project-compact-body">
+                            <div class="project-compact-top">
+                                <h3>2WENT6EX</h3>
+                                <i class="fas fa-arrow-up-right-from-square project-compact-arrow"></i>
+                            </div>
+                            <p>Non-contemporary fashion e-commerce site, built and shipped end to end.</p>
+                        </div>
+                    </a>
+                </div>
             </div>
         </section>
 

@@ -7,7 +7,7 @@
 
     <title>Lotus — Jayash Bhandary</title>
 
-    <meta name="description" content="Lotus — a project by Jayash Bhandary.">
+    <meta name="description" content="A local Windows automation agent controlled via Telegram — manage apps, files, system actions, and messaging with secure, real-time commands.">
     <meta name="author" content="Jayash Bhandary">
     <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1">
     <meta name="theme-color" content="#ffffff">
@@ -19,7 +19,7 @@
     <meta property="og:url" content="https://jayashbhandary.github.io/projects/lotus.html">
     <meta property="og:site_name" content="Jayash Bhandary">
     <meta property="og:title" content="Lotus — Jayash Bhandary">
-    <meta property="og:description" content="Lotus — a project by Jayash Bhandary.">
+    <meta property="og:description" content="A local Windows automation agent controlled via Telegram — manage apps, files, system actions, and messaging with secure, real-time commands.">
     <meta property="og:image" content="https://raw.githubusercontent.com/JayashBhandary/jayashbhandary.github.io/master/image.jpeg">
     <meta property="og:locale" content="en_US">
 
@@ -30,7 +30,7 @@
     <link rel="icon" type="image/x-icon" href="../favicon.ico">
     <link rel="apple-touch-icon" href="../favicon.ico">
 
-    <link rel="stylesheet" href="../style.css">
+    <link rel="stylesheet" href="../style.css?v=2">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
@@ -44,19 +44,40 @@
     <div data-component="nav"></div>
 
     <main>
-        <header class="hero page-hero">
+        <header class="hero page-hero project-hero has-cover">
             <div class="container">
                 <p class="hero-eyebrow"><a href="../pages/projects.html" class="breadcrumb"><i class="fas fa-arrow-left"></i> Projects</a></p>
-                <h1 class="hero-title">Lotus</h1>
-                <p class="hero-subtitle" id="project-lead"></p>
-                <p class="project-meta"><span><i class="fas fa-tag"></i> Ollama, LLM, MCP, Telegram</span></p>
-                <div class="hero-actions"><a href="https://github.com/JayashBhandary/Lotus" class="btn btn-ghost" target="_blank" rel="noopener"><i class="fab fa-github"></i> View on GitHub</a></div>
+                <div class="project-hero-grid">
+                    <figure class="project-hero-media"><img src="../assets/img/lotus.png" alt="Lotus" loading="lazy"></figure>
+                    <div class="project-hero-text">
+                        <h1 class="hero-title">Lotus</h1>
+                        <p class="hero-subtitle" id="project-lead">A local Windows automation agent controlled via Telegram — manage apps, files, system actions, and messaging with secure, real-time commands.</p>
+                        <p class="project-meta"><span><i class="fas fa-tag"></i> Ollama, LLM, MCP, Telegram</span></p>
+                        <div class="hero-actions"><a href="https://github.com/JayashBhandary/Lotus" class="btn btn-ghost" target="_blank" rel="noopener"><i class="fab fa-github"></i> View on GitHub</a></div>
+                    </div>
+                </div>
             </div>
         </header>
 
+        <section class="section release-section" id="release-section" hidden>
+            <div class="container">
+                <div class="release-card" id="release-card">
+                    <div class="release-head">
+                        <div class="release-title">
+                            <span class="release-label">Latest release</span>
+                            <span class="release-tag" id="release-tag"></span>
+                            <time class="release-date" id="release-date"></time>
+                        </div>
+                        <select class="release-select" id="release-select" aria-label="Select a release"></select>
+                    </div>
+                    <div class="markdown-body release-body" id="release-body"></div>
+                    <ul class="release-assets" id="release-assets"></ul>
+                </div>
+            </div>
+        </section>
+
         <section class="section">
             <div class="container">
-                <figure class="media-figure"><img src="../assets/img/lotus.png" alt="Lotus" loading="lazy"></figure>
                 <article class="markdown-body" id="readme"><p class="readme-status">Loading README…</p></article>
             </div>
         </section>
@@ -124,6 +145,77 @@
                 .catch(function () { attempt(bi, fi + 1); });
         }
         attempt(0, 0);
+    })();
+
+    // ---- GitHub releases: latest by default, selectable; graceful fallback ----
+    (function () {
+        var cfg = {"owner":"JayashBhandary","name":"Lotus","branches":["main","master"],"title":"Lotus"};
+        var sec = document.getElementById('release-section');
+        var tagEl = document.getElementById('release-tag');
+        var dateEl = document.getElementById('release-date');
+        var selEl = document.getElementById('release-select');
+        var bodyEl = document.getElementById('release-body');
+        var assetsEl = document.getElementById('release-assets');
+        var releasesUrl = 'https://github.com/' + cfg.owner + '/' + cfg.name + '/releases';
+        var api = 'https://api.github.com/repos/' + cfg.owner + '/' + cfg.name + '/releases?per_page=30';
+
+        function fallback() {
+            sec.hidden = false;
+            sec.querySelector('.release-card').innerHTML =
+                '<p class="readme-status">Latest release info is unavailable right now. ' +
+                '<a href="' + releasesUrl + '" target="_blank" rel="noopener">View releases on GitHub</a>.</p>';
+        }
+
+        function fmtDate(s) {
+            if (!s) return '';
+            var d = new Date(s);
+            if (isNaN(d)) return '';
+            return d.toLocaleDateString(undefined, { year: 'numeric', month: 'short', day: 'numeric' });
+        }
+        function fmtSize(n) {
+            if (!n && n !== 0) return '';
+            var u = ['B', 'KB', 'MB', 'GB'], i = 0;
+            while (n >= 1024 && i < u.length - 1) { n /= 1024; i++; }
+            return (i ? n.toFixed(1) : n) + ' ' + u[i];
+        }
+
+        function show(rel) {
+            tagEl.textContent = rel.tag_name || rel.name || '';
+            dateEl.textContent = fmtDate(rel.published_at);
+            if (rel.published_at) dateEl.setAttribute('datetime', rel.published_at);
+            bodyEl.innerHTML = rel.body
+                ? marked.parse(rel.body)
+                : '<p class="readme-status">No release notes.</p>';
+            bodyEl.querySelectorAll('a[href]').forEach(function (a) {
+                if (a.hostname && a.hostname !== location.hostname) { a.target = '_blank'; a.rel = 'noopener'; }
+            });
+            if (window.hljs) bodyEl.querySelectorAll('pre code').forEach(function (b) { hljs.highlightElement(b); });
+
+            var assets = rel.assets || [];
+            assetsEl.innerHTML = assets.map(function (a) {
+                return '<li><a href="' + a.browser_download_url + '" rel="noopener">' +
+                    '<i class="fas fa-download"></i> ' + a.name +
+                    '</a><span class="asset-size">' + fmtSize(a.size) + '</span></li>';
+            }).join('');
+            assetsEl.hidden = !assets.length;
+        }
+
+        fetch(api, { headers: { 'Accept': 'application/vnd.github+json' } })
+            .then(function (r) { if (!r.ok) throw new Error(r.status); return r.json(); })
+            .then(function (list) {
+                var rels = (list || []).filter(function (r) { return !r.draft; });
+                if (!rels.length) return; // repo has no releases — leave the card hidden
+                sec.hidden = false;
+                rels.forEach(function (rel, i) {
+                    var o = document.createElement('option');
+                    o.value = String(i);
+                    o.textContent = (rel.tag_name || rel.name || 'release') + (i === 0 ? ' — latest' : '');
+                    selEl.appendChild(o);
+                });
+                selEl.addEventListener('change', function () { show(rels[+selEl.value] || rels[0]); });
+                show(rels[0]);
+            })
+            .catch(fallback);
     })();
     </script>
 </body>
